@@ -15,5 +15,7 @@ class GooglePhotos(object):
         images = []
         for im_url in re.findall(image_url_pattern, r.text):
             images.append(im_url)
+        
+        #print(f'images: {list(set(images))}')
 
         return({'images': list(set(images))})
