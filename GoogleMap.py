@@ -22,15 +22,30 @@ class GMap(object):
         
         gmap = Map(
             identifier="gmap",
-            varname="gmap",
+            #varname="gmap",
             lat=EVENT_LOCATION[0],
             lng=EVENT_LOCATION[1],
-            markers={
-                icons.dots.green: [(EVENT_LOCATION[0], EVENT_LOCATION[1], 'Main Event!')],
-                icons.dots.blue: [(A_MARKER[0], A_MARKER[1], 'Relevant Location')],
-            },
+            #markers={
+            #    icons.dots.green: [(EVENT_LOCATION[0], EVENT_LOCATION[1], 'Main Event!')],
+            #    icons.dots.blue: [(A_MARKER[0], A_MARKER[1], 'Relevant Location')]
+            #},
+            markers=[
+                {
+                    'icon': 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+                    'lat': EVENT_LOCATION[0],
+                    'lng': EVENT_LOCATION[1],
+                    'infobox': '<a target="_blank" href="https://www.google.com/maps/place/Herningsholmvej+7,+7400+Herning/@56.1430569,8.9925086,17z/data=!3m1!4b1!4m5!3m4!1s0x464bbc01922cc8cf:0x2bd3b6a7cc278f7d!8m2!3d56.1430569!4d8.9946972">Yay!</a>'
+                },
+                {
+                    'icon': 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png',
+                    'lat':A_MARKER[0],
+                    'lng': A_MARKER[1],
+                    'infobox': '<b>Hello World from other place</b>'
+                }
+            ],
             style=f'height:{set_height}px;width:{set_width}px;',
             zoom=16,
+            mapdisplay=True
         )
 
         return gmap
