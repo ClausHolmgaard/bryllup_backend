@@ -29,7 +29,7 @@ class GMap(object):
                 icons.dots.green: [(EVENT_LOCATION[0], EVENT_LOCATION[1], 'Main Event!')],
                 icons.dots.blue: [(A_MARKER[0], A_MARKER[1], 'Relevant Location')],
             },
-            style=f'height:{set_height}px;width:{set_width}px;margin:0;',
+            style=f'height:{set_height}px;width:{set_width}px;',
             zoom=16,
         )
 
