@@ -1,4 +1,3 @@
-
 from flask_googlemaps import GoogleMaps, Map, icons
 
 # Hardcoding some locations, to avoid too many google map requests
@@ -10,8 +9,6 @@ class GMap(object):
         self.logger = logger
         GoogleMaps(app, key=api_key)
     
-
-
     def get_map(self, height, width):
         set_height = 400
         set_width = 600
