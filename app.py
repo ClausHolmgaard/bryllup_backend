@@ -1,10 +1,17 @@
 import os
 import logging
 from flask import Flask, jsonify, render_template, request
+from flask_cors import CORS
 
 from GooglePhotos import GooglePhotos
 from GoogleMap import GMap
 from MailHandler import MailHandler
+
+cors_config = {
+  "origins": ["http://localhost:5000"],
+  "methods": ["OPTIONS", "GET", "POST"],
+  "allow_headers": ["Authorization", "Content-Type"]
+}
 
 mailgun_api_key = os.environ['MAILGUN_API_KEY']
 mailgun_domain = os.environ['MAILGUN_DOMAIN']
@@ -14,6 +21,7 @@ image_url = 'https://photos.app.goo.gl/Qkvp72b5QoqAuWy86'
 logging.basicConfig(level=logging.DEBUG)
 
 app = Flask(__name__, template_folder='.')
+CORS(app, resources={"/*": cors_config})
 
 gphotos = GooglePhotos(app.logger)
 gmap = GMap(app.logger, app, google_map_key)
@@ -43,6 +51,8 @@ def image_list():
 def after_request(response):
     header = response.headers
     header['Access-Control-Allow-Origin'] = '*'
+    header['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
+    header['Access-Control-Allow-Methods'] = 'POST'
     return response
 
 if __name__ == '__main__':
