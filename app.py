@@ -51,8 +51,8 @@ def image_list():
 def after_request(response):
     header = response.headers
     header['Access-Control-Allow-Origin'] = '*'
-    header['Access-Control-Allow-Headers'] = 'Content-Type,Authorization'
-    header['Access-Control-Allow-Methods'] = 'POST'
+    header['Access-Control-Allow-Headers'] = 'Accept,Content-Type,Authorization'
+    header['Access-Control-Allow-Methods'] = 'GET,POST'
     return response
 
 if __name__ == '__main__':
