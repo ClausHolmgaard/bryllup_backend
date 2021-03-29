@@ -18,10 +18,11 @@ def send_complex_message():
 """
 
 REQUIRED_FIELDS = ['name',
-                   'phone',
+                   'email',
                    'adults',
-                   'children',
-                   'comment']
+                   'children0to3',
+                   'children3to12',
+                   'allergy']
 
 class MailHandler(object):
     def __init__(self, logger, api_key, domain):
@@ -51,9 +52,10 @@ class MailHandler(object):
                     "to": ["rsvp@buiholmgaard.dk"],
                     "subject": f"RSVP fra {data['name']}",
                     "text": f"RSVP fra {data['name']}:\n\
-                            Tlf: {data['phone']}\n\
+                            Email: {data['email']}\n\
                             Voksne: {data['adults']}\n\
-                            Børn: {data['children']}\n\
-                            Kommentar: {data['comment']}"})
+                            Børn under 3: {data['children0to3']}\n\
+                            Børn 3 til 12: {data['children3to12']}\n\
+                            Allergier: {data['allergy']}"})
 
             return Response(status=post_mail.status_code, mimetype='application/json')
