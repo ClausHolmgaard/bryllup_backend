@@ -1,23 +1,8 @@
 import requests
 from flask import request, Response
 
-"""
-def send_complex_message():
-    return requests.post(
-        "https://api.mailgun.net/v3/YOUR_DOMAIN_NAME/messages",
-        auth=("api", "YOUR_API_KEY"),
-        files=[("attachment", ("test.jpg", open("files/test.jpg","rb").read())),
-               ("attachment", ("test.txt", open("files/test.txt","rb").read()))],
-        data={"from": "Excited User <YOU@YOUR_DOMAIN_NAME>",
-              "to": "foo@example.com",
-              "cc": "baz@example.com",
-              "bcc": "bar@example.com",
-              "subject": "Hello",
-              "text": "Testing some Mailgun awesomness!",
-              "html": "<html>HTML version of the body</html>"})
-"""
-
 REQUIRED_FIELDS = ['name',
+                   'participating',
                    'email',
                    'adults',
                    'children0to3',
@@ -44,6 +29,9 @@ class MailHandler(object):
                 status_text = f"{{'Fields_missing': '{','.join(missing_fields)}'}}"
                 return Response(status_text, status=400, mimetype='application/json')
             
+            deltager = 'ja'
+            if data['participating'] == 'false':
+                deltager = 'nej'
         
             post_mail = requests.post(
                 f"https://api.mailgun.net/v3/{self.domain}/messages",
@@ -52,6 +40,7 @@ class MailHandler(object):
                     "to": ["rsvp@buiholmgaard.dk"],
                     "subject": f"RSVP fra {data['name']}",
                     "text": f"RSVP fra {data['name']}:\n\
+                            Deltager: {deltager}\n\
                             Email: {data['email']}\n\
                             Voksne: {data['adults']}\n\
                             Børn under 3: {data['children0to3']}\n\
